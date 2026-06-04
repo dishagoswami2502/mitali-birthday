@@ -52,20 +52,31 @@
     </div>
   </div>
 
-  <!-- SECTION 1: WELCOME SCREEN -->
+  <!-- SECTION 1: WELCOME / NORTH STAR INTRO -->
   <section id="welcome-screen" class="experience-screen active">
     <div class="screen-content text-center">
-      <div class="welcome-text-wrapper">
-        <h2 class="welcome-line" id="welcome-line-1">Hello Mitali.</h2>
-        <h2 class="welcome-line hidden" id="welcome-line-2">Welcome.</h2>
-        <p class="welcome-line tagline hidden" id="welcome-line-3">You have been selected for a mandatory birthday experience.</p>
-        <p class="welcome-line warning hidden" id="welcome-line-4">Participation is not optional.</p>
+
+      <!-- Hero photo -->
+      <div class="welcome-hero-photo" id="welcome-hero-photo">
+        <img src="assets/img3.jpg" alt="Mitali and Disha under cherry blossoms" class="hero-img"/>
+        <div class="hero-img-glow"></div>
       </div>
+
+      <div class="welcome-text-wrapper">
+        <p class="welcome-line intro-tag" id="welcome-line-0">✨ From your little sister, with love</p>
+        <h2 class="welcome-line" id="welcome-line-1">Hi, North Star. ✨</h2>
+        <h2 class="welcome-line hidden" id="welcome-line-2">Today, we're here to celebrate something special.</h2>
+        <h1 class="welcome-line mitali-day hidden" id="welcome-line-3">Mitali Day.</h1>
+        <p class="welcome-line tagline hidden" id="welcome-line-4">But before you enter…</p>
+        <p class="welcome-line warning hidden" id="welcome-line-5">As your little sister, I need to verify<br>that it's really you.</p>
+      </div>
+
       <div class="welcome-actions hidden" id="welcome-actions">
-        <button id="btn-accept-fate" class="btn-premium pulse-btn">I Accept My Fate</button>
+        <button id="btn-accept-fate" class="btn-premium pulse-btn">Begin Security Check 🔐</button>
       </div>
     </div>
   </section>
+
 
   <!-- SECTION 2: THE CONTRACT -->
   <section id="contract-screen" class="experience-screen hidden">
@@ -164,49 +175,102 @@
     </div>
   </section>
 
-  <!-- SECTION 3: IDENTITY VERIFICATION -->
+  <!-- SECTION 3: SECURITY CHECK (Personal Quiz) -->
   <section id="quiz-screen" class="experience-screen hidden">
     <div class="screen-content text-center">
-      <div class="glass-panel quiz-panel">
-        <h2 class="section-title">Identity Verification</h2>
-        <p class="section-subtitle">Prove that you are actually Mitali. Correctly answer the memory tests.</p>
-        
-        <div id="quiz-question-container">
-          <!-- Questions will render one by one dynamically -->
-          <div class="quiz-question" id="quiz-q1">
-            <h3 class="question-text">Question 1: What is Disha's official status in your life?</h3>
-            <div class="quiz-options">
-              <button class="btn-option" data-correct="false">A) Annoying colleague</button>
-              <button class="btn-option" data-correct="false">B) Temporary project assistant</button>
-              <button class="btn-option" data-correct="true">C) Accidental, permanently adopted younger sister</button>
-            </div>
-          </div>
 
-          <div class="quiz-question hidden" id="quiz-q2">
-            <h3 class="question-text">Question 2: What is Mitali's ultimate weakness that Disha loves to trigger?</h3>
-            <div class="quiz-options">
-              <button class="btn-option" data-correct="false">A) Cooking too much food</button>
-              <button class="btn-option" data-correct="true">B) Hating the color pink</button>
-              <button class="btn-option" data-correct="false">C) Answering work calls on vacation</button>
-            </div>
-          </div>
+      <!-- Q1 panel -->
+      <div class="glass-panel quiz-panel security-panel" id="quiz-q1">
+        <p class="security-label">🔐 Security Check #1</p>
+        <h2 class="section-title">What is the one thing Disha has been asking you to make for the last four months?</h2>
+        <p class="section-subtitle">Choose wisely. Your entry depends on it.</p>
+        <div class="quiz-options security-options">
+          <button class="btn-option" data-correct="false" data-q="1">🍕 Pizza</button>
+          <button class="btn-option" data-correct="false" data-q="1">🍜 Maggi</button>
+          <button class="btn-option" data-correct="true"  data-q="1">🍝 Pasta</button>
+          <button class="btn-option" data-correct="false" data-q="1">🍛 Biryani</button>
+        </div>
+        <!-- Wrong answer toast (hidden by default) -->
+        <div class="security-wrong hidden" id="q1-wrong">
+          <p class="wrong-msg">Hmm… are you sure that's you? 🤨</p>
+          <button class="btn-link" id="q1-retry">Try again</button>
+        </div>
+      </div>
 
-          <div class="quiz-question hidden" id="quiz-q3">
-            <h3 class="question-text">Question 3: In our orbit, who is the star and who is the satellite?</h3>
-            <div class="quiz-options">
-              <button class="btn-option" data-correct="false">A) Disha is the star, Mitali is the background</button>
-              <button class="btn-option" data-correct="true">B) Mitali is the star, Disha is the stubborn satellite</button>
-            </div>
+      <!-- Q1 correct reveal -->
+      <div class="security-reveal hidden" id="q1-reveal">
+        <div class="glass-panel quiz-panel reveal-panel">
+          <div class="reveal-check">✅</div>
+          <h3 class="reveal-title">Correct Answer: Pasta 🍝</h3>
+          <p class="reveal-note gentle-reminder">🙄 Gentle Reminder</p>
+          <p class="reveal-subtext">My party is still pending.</p>
+          <div class="reveal-photo-row">
+            <img src="assets/img7.jpg" alt="Memory" class="reveal-photo"/>
+            <img src="assets/img9.jpg" alt="Memory" class="reveal-photo"/>
           </div>
+          <button class="btn-premium" id="q1-next">Next Check →</button>
+        </div>
+      </div>
+
+      <!-- Q2 panel -->
+      <div class="glass-panel quiz-panel security-panel hidden" id="quiz-q2">
+        <p class="security-label">🔐 Security Check #2</p>
+        <p class="security-hmm">Hmm…</p>
+        <p class="security-hmm-sub">That was easy.</p>
+        <h2 class="section-title">One final verification.</h2>
+        <h3 class="question-text">Who is Skipper?</h3>
+        <div class="quiz-options security-options">
+          <button class="btn-option" data-correct="false" data-q="2">Kiran</button>
+          <button class="btn-option" data-correct="false" data-q="2">Dev</button>
+          <button class="btn-option" data-correct="false" data-q="2">Mitali</button>
+          <button class="btn-option" data-correct="true"  data-q="2">Disha 🚢</button>
+        </div>
+        <div class="security-wrong hidden" id="q2-wrong">
+          <p class="wrong-msg">Really? You forgot? 😏</p>
+          <button class="btn-link" id="q2-retry">Try again</button>
+        </div>
+      </div>
+
+      <!-- IDENTITY VERIFIED celebration -->
+      <div class="identity-verified hidden" id="identity-verified">
+        <div class="verified-badge">✅</div>
+        <h2 class="verified-title">Identity Verified ✅</h2>
+        <p class="verified-sub">Correct Answer: Disha 🚢</p>
+        <p class="verified-confirm">You are officially <strong>Mitali Ma'am.</strong></p>
+        <p class="verified-confirm">Welcome to your day.</p>
+
+        <!-- Photo showcase -->
+        <div class="verified-photo-showcase">
+          <img src="assets/img3.jpg"  alt="Both" class="showcase-photo sp-main"/>
+          <img src="assets/img1.jpg"  alt="Mitali" class="showcase-photo sp-side"/>
+          <img src="assets/img11.jpg" alt="Memory" class="showcase-photo sp-side"/>
         </div>
 
-        <div id="quiz-feedback" class="quiz-feedback-box hidden">
-          <p class="feedback-text">Hmm.</p>
-          <button id="btn-need-direction" class="btn-link">Need some Direction?</button>
+        <!-- The tribute -->
+        <div class="tribute-block">
+          <p class="tribute-line">The mentor.</p>
+          <p class="tribute-line">The sister.</p>
+          <p class="tribute-line">The mother.</p>
+          <p class="tribute-line">The friend.</p>
+          <p class="tribute-line">The safe place.</p>
+          <p class="tribute-line">The North Star.</p>
+          <p class="tribute-line tribute-final">And today…</p>
+          <p class="tribute-line tribute-honour">the guest of honour. 🌟</p>
         </div>
+
+        <h2 class="mitali-day-final">✨ Welcome to Mitali Day ✨</h2>
+
+        <button class="btn-premium pulse-btn" id="btn-enter-celebration">Enter Celebration 🎉</button>
+      </div>
+
+      <!-- feedback fallback -->
+      <div id="quiz-feedback" class="quiz-feedback-box hidden">
+        <p class="feedback-text">Hmm.</p>
+        <button id="btn-need-direction" class="btn-link">Need some Direction?</button>
       </div>
     </div>
   </section>
+
 
   <!-- SECTION 4: THE NICKNAME VAULT -->
   <section id="vault-screen" class="experience-screen hidden">

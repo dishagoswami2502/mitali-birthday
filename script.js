@@ -596,25 +596,19 @@ document.addEventListener('mousemove', () => {
 
 // --- 5. WELCOME SCREEN CONTROLS ---
 function initializeWelcomeScreen() {
-  const lines = [
-    document.getElementById('welcome-line-1'),
-    document.getElementById('welcome-line-2'),
-    document.getElementById('welcome-line-3'),
-    document.getElementById('welcome-line-4'),
-    document.getElementById('welcome-actions')
-  ];
-  
-  // Sequentially display welcome text blocks
-  lines.forEach((line, idx) => {
+  // line-0 is already visible (intro tag), reveal lines 1-5 then actions
+  const lineIds = ['welcome-line-2','welcome-line-3','welcome-line-4','welcome-line-5','welcome-actions'];
+
+  lineIds.forEach((id, idx) => {
     setTimeout(() => {
-      if (line) {
-        line.classList.remove('hidden');
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.remove('hidden');
         if (skyEngine) {
-          // Trigger stardust chimes on text entry
           skyEngine.spawnFirefly(window.innerWidth / 2, window.innerHeight / 2 - 50);
         }
       }
-    }, idx * 1600);
+    }, (idx + 1) * 1600);
   });
 }
 
@@ -622,6 +616,7 @@ document.getElementById('btn-accept-fate').addEventListener('click', () => {
   synth.startAmbientMelody();
   transitionToScreen('contract-screen');
 });
+
 
 // --- 6. TERMS CONTRACT CHECKLISTS ---
 const contractChecks = document.querySelectorAll('.contract-check');
@@ -684,74 +679,120 @@ if (fleeingContainer) {
 const proceedFromContract = () => {
   synth.playUnlockSparkle();
   transitionToScreen('quiz-screen');
+  // Small delay so screen renders before wiring events
+  setTimeout(() => initSecurityCheck(), 200);
 };
 
 btnAgree.addEventListener('click', proceedFromContract);
 btnNoChoice.addEventListener('click', proceedFromContract);
 
-// --- 7. IDENTITY QUIZ VALIDATION ---
-const quizQuestions = document.querySelectorAll('.quiz-question');
+// --- 7. SECURITY CHECK — Personal Identity Quiz ---
 const feedbackBox = document.getElementById('quiz-feedback');
 const directionModal = document.getElementById('direction-modal');
 
-document.querySelectorAll('.btn-option').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    const isCorrect = btn.getAttribute('data-correct') === 'true';
-    const currentQ = quizQuestions[state.quizQuestionIndex - 1];
-    
-    if (isCorrect) {
-      btn.classList.add('correct-choice');
-      synth.playUnlockSparkle();
-      feedbackBox.classList.add('hidden');
-      
-      // Load next question or proceed to next screen
-      setTimeout(() => {
-        state.quizQuestionIndex++;
-        if (state.quizQuestionIndex <= quizQuestions.length) {
-          currentQ.classList.add('hidden');
-          const nextQ = quizQuestions[state.quizQuestionIndex - 1];
-          nextQ.classList.remove('hidden');
-        } else {
-          // All quiz items correct -> transition to Nickname Vault
-          transitionToScreen('vault-screen');
-          initializeVault();
-        }
-      }, 1000);
-    } else {
-      btn.classList.add('wrong-choice');
-      synth.playBoing();
-      
-      // Shake container
-      const panel = document.querySelector('.quiz-panel');
-      panel.classList.add('stamp-shake');
-      setTimeout(() => panel.classList.remove('stamp-shake'), 400);
-      
-      feedbackBox.classList.remove('hidden');
-      
-      // Mitali is watching — wrong answer trigger
-      setTimeout(() => triggerWatchingContext('wrongAnswer'), 600);
-    }
-  });
-});
+// This replaces the old generic quiz with Disha's personal 2-question check.
 
-document.getElementById('btn-need-direction').addEventListener('click', () => {
-  directionModal.classList.remove('hidden');
-  setTimeout(() => directionModal.classList.add('active'), 50);
-  synth.playUnlockSparkle();
-});
+function initSecurityCheck() {
+  // Wire Q1 options
+  document.querySelectorAll('.btn-option[data-q="1"]').forEach(btn => {
+    btn.addEventListener('click', () => handleSecurityAnswer(btn, 1));
+  });
+  // Wire Q2 options
+  document.querySelectorAll('.btn-option[data-q="2"]').forEach(btn => {
+    btn.addEventListener('click', () => handleSecurityAnswer(btn, 2));
+  });
+  // Q1 retry
+  const q1retry = document.getElementById('q1-retry');
+  if (q1retry) q1retry.addEventListener('click', () => resetSecurityQ(1));
+  // Q2 retry
+  const q2retry = document.getElementById('q2-retry');
+  if (q2retry) q2retry.addEventListener('click', () => resetSecurityQ(2));
+  // Q1 next button → show Q2
+  const q1next = document.getElementById('q1-next');
+  if (q1next) q1next.addEventListener('click', () => {
+    document.getElementById('q1-reveal').classList.add('hidden');
+    const q2 = document.getElementById('quiz-q2');
+    q2.classList.remove('hidden');
+    q2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    synth.playUnlockSparkle && synth.playUnlockSparkle();
+  });
+  // Enter Celebration
+  const enterBtn = document.getElementById('btn-enter-celebration');
+  if (enterBtn) enterBtn.addEventListener('click', () => {
+    transitionToScreen('contract-screen');
+  });
+  // Fallback direction button
+  const dirBtn = document.getElementById('btn-need-direction');
+  if (dirBtn) dirBtn.addEventListener('click', () => {
+    directionModal.classList.remove('hidden');
+    setTimeout(() => directionModal.classList.add('active'), 50);
+  });
+}
+
+function handleSecurityAnswer(btn, qNum) {
+  const isCorrect = btn.getAttribute('data-correct') === 'true';
+  // Disable all options for this question
+  document.querySelectorAll(`.btn-option[data-q="${qNum}"]`).forEach(b => b.disabled = true);
+
+  if (isCorrect) {
+    btn.classList.add('correct-choice');
+    synth.playUnlockSparkle && synth.playUnlockSparkle();
+
+    setTimeout(() => {
+      if (qNum === 1) {
+        // Hide Q1 panel, show Q1 reveal
+        document.getElementById('quiz-q1').classList.add('hidden');
+        const reveal = document.getElementById('q1-reveal');
+        reveal.classList.remove('hidden');
+        reveal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (qNum === 2) {
+        // Hide Q2 panel, show identity verified
+        document.getElementById('quiz-q2').classList.add('hidden');
+        const verified = document.getElementById('identity-verified');
+        verified.classList.remove('hidden');
+        verified.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Stagger tribute lines
+        const lines = verified.querySelectorAll('.tribute-line');
+        lines.forEach((l, i) => {
+          l.style.opacity = '0';
+          l.style.transform = 'translateY(12px)';
+          setTimeout(() => {
+            l.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            l.style.opacity = '1';
+            l.style.transform = 'translateY(0)';
+          }, 400 + i * 300);
+        });
+      }
+    }, 600);
+  } else {
+    btn.classList.add('wrong-choice');
+    synth.playBoing && synth.playBoing();
+    // Show wrong message
+    const wrongEl = document.getElementById(`q${qNum}-wrong`);
+    if (wrongEl) wrongEl.classList.remove('hidden');
+    // Shake
+    const panel = document.getElementById(qNum === 1 ? 'quiz-q1' : 'quiz-q2');
+    panel.classList.add('stamp-shake');
+    setTimeout(() => panel.classList.remove('stamp-shake'), 400);
+    setTimeout(() => triggerWatchingContext && triggerWatchingContext('wrongAnswer'), 600);
+  }
+}
+
+function resetSecurityQ(qNum) {
+  const wrongEl = document.getElementById(`q${qNum}-wrong`);
+  if (wrongEl) wrongEl.classList.add('hidden');
+  document.querySelectorAll(`.btn-option[data-q="${qNum}"]`).forEach(b => {
+    b.disabled = false;
+    b.classList.remove('wrong-choice', 'correct-choice');
+  });
+}
 
 document.getElementById('btn-close-direction').addEventListener('click', () => {
   directionModal.classList.remove('active');
   setTimeout(() => directionModal.classList.add('hidden'), 450);
-  synth.playBuzzer();
-  
-  // Highlight correct option to help Mitali bypass
-  const currentQ = quizQuestions[state.quizQuestionIndex - 1];
-  const correctBtn = currentQ.querySelector('.btn-option[data-correct="true"]');
-  if (correctBtn) {
-    correctBtn.classList.add('correct-choice');
-  }
+  synth.playBuzzer && synth.playBuzzer();
 });
+
 
 // --- 8. THE NICKNAME VAULT (SECRET ROOM) ---
 const nicknameStories = {
