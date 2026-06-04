@@ -614,8 +614,10 @@ function initializeWelcomeScreen() {
 
 document.getElementById('btn-accept-fate').addEventListener('click', () => {
   synth.startAmbientMelody();
-  transitionToScreen('contract-screen');
+  transitionToScreen('quiz-screen');
+  setTimeout(() => initSecurityCheck(), 200);
 });
+
 
 
 // --- 6. TERMS CONTRACT CHECKLISTS ---
@@ -678,13 +680,13 @@ if (fleeingContainer) {
 
 const proceedFromContract = () => {
   synth.playUnlockSparkle();
-  transitionToScreen('quiz-screen');
-  // Small delay so screen renders before wiring events
-  setTimeout(() => initSecurityCheck(), 200);
+  transitionToScreen('vault-screen');
+  setTimeout(() => initializeVault(), 200);
 };
 
 btnAgree.addEventListener('click', proceedFromContract);
 btnNoChoice.addEventListener('click', proceedFromContract);
+
 
 // --- 7. SECURITY CHECK — Personal Identity Quiz ---
 const feedbackBox = document.getElementById('quiz-feedback');
@@ -716,11 +718,12 @@ function initSecurityCheck() {
     q2.scrollIntoView({ behavior: 'smooth', block: 'center' });
     synth.playUnlockSparkle && synth.playUnlockSparkle();
   });
-  // Enter Celebration
+  // Enter Celebration → go to contract (Birthday Terms)
   const enterBtn = document.getElementById('btn-enter-celebration');
   if (enterBtn) enterBtn.addEventListener('click', () => {
     transitionToScreen('contract-screen');
   });
+
   // Fallback direction button
   const dirBtn = document.getElementById('btn-need-direction');
   if (dirBtn) dirBtn.addEventListener('click', () => {
