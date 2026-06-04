@@ -1525,3 +1525,468 @@ canvas#confetti-canvas {
   .says-grid { grid-template-columns: 1fr; }
   .says-card { height: 130px; }
 }
+
+/* ==========================================================================
+   MOBILE ENHANCEMENT — Full responsive overhaul
+   Targeting 360px–768px screens: phones & small tablets
+   ========================================================================== */
+
+/* ── 1. Fix 100vh address-bar clipping on mobile browsers ── */
+@supports (height: 100dvh) {
+  .experience-screen {
+    height: 100dvh;
+  }
+  canvas#sky-canvas,
+  #pink-overlay {
+    height: 100dvh;
+  }
+}
+
+/* ── 2. Global mobile base ── */
+@media (max-width: 768px) {
+
+  /* Fluid screen padding */
+  .experience-screen {
+    padding: 20px 16px;
+    align-items: flex-start;
+    padding-top: max(24px, env(safe-area-inset-top));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+
+  .screen-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Glass panels — reduce padding, keep rounded */
+  .glass-panel {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+
+  /* Fluid typography using clamp */
+  .section-title {
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
+    margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    font-size: clamp(0.85rem, 3.5vw, 1rem);
+    margin-bottom: 22px;
+  }
+
+  /* Larger touch targets for buttons */
+  .btn-premium {
+    padding: 15px 28px;
+    font-size: 0.82rem;
+    min-height: 48px;
+    letter-spacing: 1.5px;
+  }
+
+  /* Buttons stack vertically */
+  .contract-actions,
+  .decree-actions,
+  .orbit-actions {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .contract-actions .btn-premium,
+  .decree-actions .btn-premium {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* Checkbox touch targets */
+  .checkbox-container {
+    padding-left: 38px;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .checkmark {
+    width: 24px;
+    height: 24px;
+    top: 0;
+  }
+
+  .checkbox-container .checkmark:after {
+    left: 8px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+  }
+}
+
+/* ── 3. Welcome Screen ── */
+@media (max-width: 768px) {
+
+  .welcome-text-wrapper {
+    max-width: 100%;
+    margin: 0 auto 36px;
+    min-height: auto;
+  }
+
+  .welcome-line {
+    font-size: clamp(2rem, 9vw, 3rem);
+    margin-bottom: 12px;
+  }
+
+  .welcome-line.tagline {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    line-height: 1.7;
+  }
+
+  .welcome-line.warning {
+    font-size: clamp(0.85rem, 3.5vw, 1rem);
+    letter-spacing: 1.5px;
+  }
+}
+
+/* ── 4. Contract Screen ── */
+@media (max-width: 768px) {
+  .contract-panel {
+    max-width: 100%;
+  }
+
+  .contract-terms-box {
+    max-height: 45vh;
+    padding: 14px;
+    font-size: 0.93rem;
+  }
+
+  .terms-list li {
+    margin-bottom: 4px;
+  }
+}
+
+/* ── 5. Quiz Screen ── */
+@media (max-width: 768px) {
+  .quiz-panel {
+    max-width: 100%;
+  }
+
+  .question-text {
+    font-size: clamp(1.1rem, 4.5vw, 1.35rem);
+    margin-bottom: 18px;
+  }
+
+  .btn-option {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    min-height: 48px;
+    border-radius: 14px;
+  }
+}
+
+/* ── 6. Nickname Vault ── */
+@media (max-width: 768px) {
+  /* Stack vault layout vertically */
+  .vault-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .vault-tokens-area {
+    padding: 12px;
+  }
+
+  .tokens-container {
+    height: 280px;
+    margin-top: 18px;
+  }
+
+  .floating-token {
+    width: 76px;
+    height: 76px;
+  }
+
+  .token-icon { font-size: 1.5rem; }
+  .token-name { font-size: 0.65rem; }
+
+  .fragments-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .fragment-slot {
+    height: 110px;
+  }
+
+  .scrapbook-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+}
+
+/* ── 7. Investigation Screen ── */
+@media (max-width: 768px) {
+  .investigation-panel {
+    max-width: 100%;
+  }
+
+  .investigation-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .btn-title-option {
+    padding: 14px 12px;
+    font-size: 1rem;
+    min-height: 48px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .investigation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 8. Says Screen ── */
+@media (max-width: 768px) {
+  .says-tagline {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+
+  .says-quote {
+    font-size: 0.95rem;
+  }
+
+  .says-meaning {
+    font-size: 0.95rem;
+  }
+
+  .says-conclusion {
+    font-size: 1rem;
+  }
+}
+
+/* ── 9. Orbit Screen ── */
+@media (max-width: 768px) {
+  .orbit-visuals {
+    width: min(280px, 80vw);
+    height: min(280px, 80vw);
+  }
+
+  canvas#orbit-canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .orbit-center-star {
+    font-size: 2rem;
+  }
+
+  .orbit-narrative {
+    margin-top: 20px;
+  }
+
+  .orbit-line {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    margin-bottom: 8px;
+  }
+
+  .orbit-dashboard {
+    padding: 18px 14px;
+  }
+
+  .dashboard-buttons {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  .btn-dashboard {
+    width: 100%;
+    max-width: 260px;
+  }
+}
+
+/* ── 10. Orders / Decree Screen ── */
+@media (max-width: 768px) {
+  .decree-scroll {
+    padding: 0 4px;
+  }
+
+  .decree-border {
+    padding: 24px 16px;
+    border-radius: 18px;
+  }
+
+  .decree-title {
+    font-size: clamp(1.5rem, 7vw, 2.2rem);
+  }
+
+  .decree-org {
+    font-size: clamp(0.85rem, 3.5vw, 1rem);
+  }
+
+  .decree-orders-list {
+    padding: 0 4px;
+  }
+
+  .decree-order-item {
+    margin-bottom: 4px;
+  }
+
+  .order-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* ── 11. Renewal Screen ── */
+@media (max-width: 768px) {
+  .renewal-panel {
+    max-width: 100%;
+  }
+
+  .renewal-checkboxes {
+    padding: 0 4px;
+  }
+
+  .seal-container {
+    margin-top: 24px;
+  }
+
+  .wax-seal {
+    width: 110px;
+    height: 110px;
+  }
+
+  .wax-seal-inner {
+    width: 90px;
+    height: 90px;
+  }
+
+  .seal-logo {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* ── 12. Final Letter / Climax ── */
+@media (max-width: 768px) {
+  .letter-envelope-wrapper {
+    padding: 0 8px;
+  }
+
+  .letter-envelope {
+    border-radius: 18px;
+  }
+
+  .letter-paper {
+    padding: 28px 20px;
+    border-radius: 14px;
+  }
+}
+
+/* ── 13. Fixed UI controls ── */
+@media (max-width: 768px) {
+  #step-counter {
+    bottom: max(18px, env(safe-area-inset-bottom));
+    left: 14px;
+    gap: 4px;
+  }
+
+  #corner-monogram {
+    top: max(16px, env(safe-area-inset-top));
+    left: 16px;
+    font-size: 1.3rem;
+  }
+
+  #audio-control {
+    bottom: max(18px, env(safe-area-inset-bottom));
+    right: max(14px, env(safe-area-inset-right));
+  }
+
+  #audio-toggle {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    min-height: 44px;
+  }
+
+  .music-text {
+    display: none; /* show icon only on small phones */
+  }
+
+  /* Notification pill */
+  .mitali-watching-notif {
+    max-width: calc(100vw - 28px);
+    left: 14px;
+    right: 14px;
+    font-size: 0.82rem;
+    padding: 10px 14px;
+  }
+
+  /* Toast */
+  .tease-toast-panel {
+    width: calc(100vw - 28px);
+    left: 14px;
+    right: 14px;
+    font-size: 0.82rem;
+  }
+
+  /* Modal */
+  .modal-content {
+    width: 94%;
+    padding: 28px 18px;
+  }
+}
+
+/* ── 14. Extra-small phones (≤ 380px) ── */
+@media (max-width: 380px) {
+  .glass-panel {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+
+  .welcome-line {
+    font-size: clamp(1.7rem, 8.5vw, 2.4rem);
+  }
+
+  .section-title {
+    font-size: clamp(1.3rem, 6.5vw, 1.8rem);
+  }
+
+  .btn-premium {
+    padding: 13px 22px;
+    font-size: 0.78rem;
+  }
+
+  .tokens-container { height: 230px; }
+  .floating-token   { width: 64px; height: 64px; }
+  .token-icon       { font-size: 1.3rem; }
+
+  .says-card { height: 120px; }
+
+  .fragment-slot { height: 90px; }
+}
+
+/* ── 15. Landscape on phone ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .experience-screen {
+    align-items: flex-start;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .welcome-line { font-size: clamp(1.4rem, 5vw, 2rem); margin-bottom: 8px; }
+  .welcome-text-wrapper { margin-bottom: 18px; min-height: auto; }
+
+  .glass-panel { padding: 18px 20px; }
+
+  .contract-terms-box { max-height: 35vh; }
+
+  .tokens-container { height: 200px; }
+
+  .orbit-visuals {
+    width: min(180px, 45vw);
+    height: min(180px, 45vw);
+  }
+}
