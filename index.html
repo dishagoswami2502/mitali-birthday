@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A mandatory birthday experience for Mitali. Created with love and sibling harassment by Disha.">
+  <title>Mandatory Birthday Experience | Mitali</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@200;300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Stars & Fireflies background canvas -->
+  <canvas id="sky-canvas"></canvas>
+  <div id="pink-overlay"></div>
+
+  <!-- Audio Toggle control -->
+  <div id="audio-control" class="hidden">
+    <button id="audio-toggle" aria-label="Toggle Music">
+      <span class="music-icon">🎵</span>
+      <span class="music-text">Playing ambient melody</span>
+    </button>
+  </div>
+
+  <!-- Pink Revenge Toast container -->
+  <div id="tease-toast" class="tease-toast-panel hidden"></div>
+
+  <!-- direction Pop-up overlay -->
+  <div id="direction-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-panel text-center">
+      <h3 class="direction-title">Need some Direction?</h3>
+      <div class="direction-reveal">Disha 😌</div>
+      <button id="btn-close-direction" class="btn-premium">Got it</button>
+    </div>
+  </div>
+
+  <!-- Mitali is Watching Notification -->
+  <div id="mitali-watching-notif" class="mitali-watching-notif hidden">
+    <div class="watching-avatar">👁️</div>
+    <div class="watching-content">
+      <span class="watching-name">Mitali</span>
+      <span class="watching-msg" id="watching-msg-text">I have eyes on you.</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: WELCOME SCREEN -->
+  <section id="welcome-screen" class="experience-screen active">
+    <div class="screen-content text-center">
+      <div class="welcome-text-wrapper">
+        <h2 class="welcome-line" id="welcome-line-1">Hello Mitali.</h2>
+        <h2 class="welcome-line hidden" id="welcome-line-2">Welcome.</h2>
+        <p class="welcome-line tagline hidden" id="welcome-line-3">You have been selected for a mandatory birthday experience.</p>
+        <p class="welcome-line warning hidden" id="welcome-line-4">Participation is not optional.</p>
+      </div>
+      <div class="welcome-actions hidden" id="welcome-actions">
+        <button id="btn-accept-fate" class="btn-premium pulse-btn">I Accept My Fate</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE CONTRACT -->
+  <section id="contract-screen" class="experience-screen hidden">
+    <div class="screen-content">
+      <div class="glass-panel contract-panel text-center">
+        <h2 class="section-title">Birthday Terms & Conditions</h2>
+        <p class="section-subtitle">Please scroll and read carefully. You must agree to all sibling terms to continue.</p>
+        
+        <div class="scroll-box contract-terms-box">
+          <ul class="terms-list">
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I agree to accept compliments without arguing.</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I agree to allow myself to be celebrated.</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I agree to smile occasionally (or frequently).</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I agree to eat cake (calories do not exist on birthdays).</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I agree to stop working for at least one full day.</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I accept that Disha is always right on birthdays.</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I acknowledge that I accidentally adopted a younger sister.</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I promise never to leave.</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I promise never to disappear.</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-container">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I promise never to forget Disha.</span>
+              </label>
+            </li>
+            <li style="position: relative; min-height: 48px;">
+              <label class="checkbox-container" id="fleeing-checkbox-container" style="position: relative; transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-flex;">
+                <input type="checkbox" class="contract-check">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I agree to continue tolerating Disha for the remainder of my natural life.</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="contract-actions">
+          <button id="btn-contract-agree" class="btn-premium" disabled>I Reluctantly Agree</button>
+          <button id="btn-contract-nochoice" class="btn-premium" disabled>I Have No Choice</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: IDENTITY VERIFICATION -->
+  <section id="quiz-screen" class="experience-screen hidden">
+    <div class="screen-content text-center">
+      <div class="glass-panel quiz-panel">
+        <h2 class="section-title">Identity Verification</h2>
+        <p class="section-subtitle">Prove that you are actually Mitali. Correctly answer the memory tests.</p>
+        
+        <div id="quiz-question-container">
+          <!-- Questions will render one by one dynamically -->
+          <div class="quiz-question" id="quiz-q1">
+            <h3 class="question-text">Question 1: What is Disha's official status in your life?</h3>
+            <div class="quiz-options">
+              <button class="btn-option" data-correct="false">A) Annoying colleague</button>
+              <button class="btn-option" data-correct="false">B) Temporary project assistant</button>
+              <button class="btn-option" data-correct="true">C) Accidental, permanently adopted younger sister</button>
+            </div>
+          </div>
+
+          <div class="quiz-question hidden" id="quiz-q2">
+            <h3 class="question-text">Question 2: What is Mitali's ultimate weakness that Disha loves to trigger?</h3>
+            <div class="quiz-options">
+              <button class="btn-option" data-correct="false">A) Cooking too much food</button>
+              <button class="btn-option" data-correct="true">B) Hating the color pink</button>
+              <button class="btn-option" data-correct="false">C) Answering work calls on vacation</button>
+            </div>
+          </div>
+
+          <div class="quiz-question hidden" id="quiz-q3">
+            <h3 class="question-text">Question 3: In our orbit, who is the star and who is the satellite?</h3>
+            <div class="quiz-options">
+              <button class="btn-option" data-correct="false">A) Disha is the star, Mitali is the background</button>
+              <button class="btn-option" data-correct="true">B) Mitali is the star, Disha is the stubborn satellite</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="quiz-feedback" class="quiz-feedback-box hidden">
+          <p class="feedback-text">Hmm.</p>
+          <button id="btn-need-direction" class="btn-link">Need some Direction?</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: THE NICKNAME VAULT -->
+  <section id="vault-screen" class="experience-screen hidden">
+    <div class="screen-content">
+      <div class="vault-layout">
+        <!-- Floating tokens area -->
+        <div class="vault-tokens-area">
+          <h2 class="section-title text-center">Evidence That Mitali Adopted Me</h2>
+          <p class="section-subtitle text-center">Click the floating tokens in the vault to retrieve my memory fragments.</p>
+          
+          <div class="tokens-container">
+            <!-- Token 1 -->
+            <div class="floating-token token-chia" data-nickname="chia" title="Click to unlock Chia Seed fragment">
+              <span class="token-icon">🌱</span>
+              <span class="token-name">Chia Seed</span>
+            </div>
+            <!-- Token 2 -->
+            <div class="floating-token token-firefly" data-nickname="firefly" title="Click to unlock Firefly fragment">
+              <span class="token-icon">✨</span>
+              <span class="token-name">Firefly</span>
+            </div>
+            <!-- Token 3 -->
+            <div class="floating-token token-skipper" data-nickname="skipper" title="Click to unlock Skipper fragment">
+              <span class="token-icon">⛵</span>
+              <span class="token-name">Skipper</span>
+            </div>
+            <!-- Token 4 -->
+            <div class="floating-token token-chutkula" data-nickname="chutkula" title="Click to unlock Chutkula fragment">
+              <span class="token-icon">🃏</span>
+              <span class="token-name">Chutkula</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrapbook collections display -->
+        <div class="scrapbook-collection glass-panel">
+          <h3 class="scrapbook-title">Memory Fragments (<span id="fragment-count">0</span>/4)</h3>
+          <div class="fragments-grid" id="fragments-grid">
+            <div class="fragment-slot empty" id="slot-1">?</div>
+            <div class="fragment-slot empty" id="slot-2">?</div>
+            <div class="fragment-slot empty" id="slot-3">?</div>
+            <div class="fragment-slot empty" id="slot-4">?</div>
+          </div>
+          <div class="vault-milestone-msg hidden" id="vault-msg-box">
+            <h4 class="glowing-text">"You have touched more lives than you know."</h4>
+            <button id="btn-proceed-investigation" class="btn-premium">Enter Investigation Room</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sibling Memory Detail Dialogs -->
+    <div id="memory-modal" class="modal-overlay hidden">
+      <div class="modal-content glass-panel">
+        <button id="btn-close-memory" class="modal-close-btn">&times;</button>
+        <h3 id="memory-title" class="modal-title">Memory Unlocked</h3>
+        <p id="memory-story" class="memory-paragraph">Story goes here.</p>
+        <div class="memory-meta">
+          <span class="meta-tag">Fragment Retained</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: THE INVESTIGATION -->
+  <section id="investigation-screen" class="experience-screen hidden">
+    <div class="screen-content text-center">
+      <div class="glass-panel investigation-panel">
+        <h2 class="section-title">Who Exactly Is Mitali?</h2>
+        <p class="section-subtitle">Select the most accurate description. Choose wisely.</p>
+        
+        <div class="investigation-grid">
+          <button class="btn-title-option" data-title="Mentor">Mentor</button>
+          <button class="btn-title-option" data-title="Leader">Leader</button>
+          <button class="btn-title-option" data-title="Teacher">Teacher</button>
+          <button class="btn-title-option" data-title="Guide">Guide</button>
+          <button class="btn-title-option" data-title="Problem Solver">Problem Solver</button>
+          <button class="btn-title-option" data-title="Responsible Adult">Responsible Adult</button>
+        </div>
+
+        <div class="stamp-container" id="stamp-container"></div>
+
+        <div class="investigation-climax hidden" id="investigation-climax">
+          <p class="climax-alert">Wrong. Those are just titles.</p>
+          <p class="climax-hint">Try again. What is she to you?</p>
+          <button id="btn-reveal-sister" class="btn-premium pulse-btn hidden">Sister</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5.5: THINGS MITALI SAYS -->
+  <section id="says-screen" class="experience-screen hidden">
+    <div class="screen-content">
+      <div class="text-center" style="margin-bottom: 35px;">
+        <h2 class="section-title says-title">Things Mitali Says</h2>
+        <p class="section-subtitle">Tap each phrase to decode the real meaning.</p>
+        <p class="says-tagline">A field guide to loving someone who expresses care through threats and surveillance.</p>
+      </div>
+
+      <div class="says-grid">
+        <div class="says-card" id="says-card-1">
+          <div class="says-inner">
+            <div class="says-front">
+              <span class="says-quote">"I have eyes on you."</span>
+            </div>
+            <div class="says-back">
+              <span class="says-meaning-label">What she actually means:</span>
+              <span class="says-meaning">I care. ❤️</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="says-card" id="says-card-2">
+          <div class="says-inner">
+            <div class="says-front">
+              <span class="says-quote">"Behave."</span>
+            </div>
+            <div class="says-back">
+              <span class="says-meaning-label">What she actually means:</span>
+              <span class="says-meaning">Please don't make me worry. 🙏</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="says-card" id="says-card-3">
+          <div class="says-inner">
+            <div class="says-front">
+              <span class="says-quote">"I will break your legs."</span>
+            </div>
+            <div class="says-back">
+              <span class="says-meaning-label">What she actually means:</span>
+              <span class="says-meaning">Please come back alive. 🌸</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="says-card" id="says-card-4">
+          <div class="says-inner">
+            <div class="says-front">
+              <span class="says-quote">"Disha..."</span>
+            </div>
+            <div class="says-back">
+              <span class="says-meaning-label">What she actually means:</span>
+              <span class="says-meaning">I have reviewed your proposal and rejected it. 🙄</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="says-card" id="says-card-5">
+          <div class="says-inner">
+            <div class="says-front">
+              <span class="says-quote">"Don't make me come there."</span>
+            </div>
+            <div class="says-back">
+              <span class="says-meaning-label">What she actually means:</span>
+              <span class="says-meaning">I will absolutely come there. 🚗</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="says-card" id="says-card-6">
+          <div class="says-inner">
+            <div class="says-front">
+              <span class="says-quote">"Eat something."</span>
+            </div>
+            <div class="says-back">
+              <span class="says-meaning-label">What she actually means:</span>
+              <span class="says-meaning">I love you. 🧁</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="says-footer hidden" id="says-footer">
+        <p class="says-conclusion">She has always been watching. Always been caring.<br>From a safe distance. With a very close eye. 👁️</p>
+        <button id="btn-from-says" class="btn-premium pulse-btn">Proceed to the Orbit</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: THE ORBIT SECTION -->
+  <section id="orbit-screen" class="experience-screen hidden">
+    <div class="screen-content text-center">
+      <div class="orbit-visuals">
+        <canvas id="orbit-canvas"></canvas>
+        <div class="orbit-center-star">🌟</div>
+      </div>
+      
+      <div class="orbit-narrative">
+        <p class="orbit-line" id="orbit-line-1">No matter where life goes,</p>
+        <p class="orbit-line hidden" id="orbit-line-2">Disha will keep orbiting around Mitali.</p>
+        <p class="orbit-line hidden" id="orbit-line-3">Like a stubborn satellite.</p>
+        <p class="orbit-line highlight-word hidden" id="orbit-line-4">The orbit never breaks.</p>
+      </div>
+
+      <!-- Sibling Orbit Accelerator Dashboard -->
+      <div id="orbit-dashboard" class="orbit-dashboard glass-panel hidden" style="margin-bottom: 30px;">
+        <h4 class="dashboard-title">Council Orbit Adjuster</h4>
+        <div class="dashboard-buttons" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 12px;">
+          <button id="btn-orbit-speedup" class="btn-premium btn-dashboard">Speed Up Orbit (Annoy)</button>
+          <button id="btn-orbit-calibrate" class="btn-premium btn-dashboard btn-secondary">Calibrate</button>
+        </div>
+        <p class="orbit-status-log" id="orbit-status-log">Status: Orbiting stably at Mach 1</p>
+      </div>
+
+      <div class="orbit-actions hidden" id="orbit-actions">
+        <button id="btn-to-orders" class="btn-premium">Proceed to Council Orders</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: THE OFFICIAL BIRTHDAY ORDERS -->
+  <section id="orders-screen" class="experience-screen hidden">
+    <div class="screen-content">
+      <div class="decree-scroll text-center">
+        <div class="decree-border">
+          <h3 class="decree-org">The Younger Sister Council</h3>
+          <div class="decree-divider">★ ★ ★</div>
+          <h2 class="decree-title">OFFICIAL ORDERS</h2>
+          <p class="decree-subtitle">Council Members: Disha (Still just Disha)</p>
+          
+          <ul class="decree-orders-list text-left">
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #1:</strong> Eat cake (calories don't count today).</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #2:</strong> Accept compliments without arguing.</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #3:</strong> Stop sleeping "ulta like a koala bear" and screwing up your knee.</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #4:</strong> Take leave from the office (enjoy with Kiran Sir!).</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #5:</strong> Acknowledge that Chia Seed is the superior driver.</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #6:</strong> Keep looking young, vibrant, and happy.</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #7:</strong> Never leave without giving me a party.</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #8:</strong> Never forget me (even when I'm in Delhi or Mumbai).</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #9:</strong> Keep adding colors to my life.</span>
+              </label>
+            </li>
+            <li class="decree-order-item">
+              <label class="checkbox-container">
+                <input type="checkbox" class="order-check" checked disabled>
+                <span class="checkmark"></span>
+                <span class="order-text"><strong>Order #10:</strong> Renew younger-sister orbit membership forever.</span>
+              </label>
+            </li>
+          </ul>
+
+          <p class="decree-warning">Violating any of the above orders will result in persistent, highly coordinates annoyance from Disha. 😈</p>
+
+          <div class="decree-actions">
+            <button id="btn-to-renewal" class="btn-premium">Proceed to Final Renewal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: THE FINAL CONTRACT RENEWAL -->
+  <section id="renewal-screen" class="experience-screen hidden">
+    <div class="screen-content text-center">
+      <div class="glass-panel renewal-panel">
+        <h2 class="section-title">Final Contract Renewal</h2>
+        <p class="section-subtitle">This agreement is due for renewal. Confirm the terms to seal it.</p>
+        
+        <div class="renewal-checkboxes text-left">
+          <label class="checkbox-container">
+            <input type="checkbox" class="renewal-check">
+            <span class="checkmark"></span>
+            <span class="checkbox-text">I will continue being your elder sister.</span>
+          </label>
+          <label class="checkbox-container">
+            <input type="checkbox" class="renewal-check">
+            <span class="checkmark"></span>
+            <span class="checkbox-text">I will continue answering your calls.</span>
+          </label>
+          <label class="checkbox-container">
+            <input type="checkbox" class="renewal-check">
+            <span class="checkmark"></span>
+            <span class="checkbox-text">I will continue tolerating your nonsense.</span>
+          </label>
+          <label class="checkbox-container">
+            <input type="checkbox" class="renewal-check">
+            <span class="checkmark"></span>
+            <span class="checkbox-text">I will continue accepting random late-night messages.</span>
+          </label>
+          <label class="checkbox-container">
+            <input type="checkbox" class="renewal-check">
+            <span class="checkmark"></span>
+            <span class="checkbox-text">I will continue being your family.</span>
+          </label>
+        </div>
+
+        <div class="seal-container">
+          <button id="btn-renew-contract" class="btn-premium pulse-btn" disabled>Renew Contract</button>
+          <div class="wax-seal hidden" id="renewal-seal">
+            <div class="wax-seal-inner">
+              <span class="seal-logo">APPROVED</span>
+            </div>
+            <p class="seal-validity">Valid Until: Forever ❤️</p>
+          </div>
+        </div>
+
+        <div class="renewal-actions hidden" id="renewal-actions">
+          <button id="btn-to-climax" class="btn-premium">Open Final Message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: FINAL SCREEN (CLIMAX) -->
+  <section id="climax-screen" class="experience-screen hidden">
+    <div class="screen-content">
+      <div class="letter-envelope-wrapper">
+        <div class="letter-envelope">
+          <div class="letter-paper">
+            <div class="final-scroll-text" id="final-scroll-text">
+              <!-- Animated typewriter text injected by JavaScript -->
+            </div>
+            
+            <div class="final-actions-row hidden" id="final-actions-row">
+              <button id="btn-replay" class="btn-text" onclick="resetExperience()">Restart Sibling Orbit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Canvas for Confetti explosions -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

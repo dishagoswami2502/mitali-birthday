@@ -1,0 +1,1527 @@
+/* ==========================================================================
+   The Mitali Experience - Sibling Hijacked Styles
+   Color Tokens: Elegant Pinks, Rose Gold, Champagne, Metallic Gold & Ivory
+   ========================================================================== */
+
+:root {
+  /* Premium Sibling Pink Palette (Tasteful & Luxury Pinks) */
+  --bg-twilight: #180d11; /* Deep charcoal-rose black */
+  --color-pink-blush: #ffd5dd; /* Cherry blossom blush */
+  --color-pink-rose: #ffa4b6; /* Warm rose pink */
+  --color-pink-soft: #ffe5ec; /* Pastel pink */
+  --color-rose-gold: #b76e79; /* Rose Gold */
+  --color-gold-metallic: #c59b4c; /* Gold accent */
+  --color-ivory: #fffff3;
+  --text-dark: #2a1618;
+  --text-muted: #6e5557;
+  --text-light: #fff0f3;
+  
+  --glass-bg: rgba(255, 243, 245, 0.45);
+  --glass-border: rgba(183, 110, 121, 0.28);
+  --glass-shadow: 0 15px 35px rgba(44, 26, 29, 0.08);
+
+  /* Fonts */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-script: 'Great Vibes', cursive;
+}
+
+/* ==========================================================================
+   1. Reset & Global Aesthetics
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-twilight);
+  color: var(--text-light);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  line-height: 1.6;
+}
+
+/* Canvas backgrounds */
+canvas#sky-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#pink-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(circle at 75% 25%, rgba(255, 183, 197, 0.3) 0%, rgba(183, 110, 121, 0.05) 75%);
+}
+
+/* Single Page Multi-Screen Engine */
+.experience-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.experience-screen.active {
+  display: flex;
+  opacity: 1;
+}
+
+.screen-content {
+  max-width: 900px;
+  width: 100%;
+  margin: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+/* Glassmorphism Panel styles */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 45px;
+  box-shadow: var(--glass-shadow);
+  color: var(--text-dark);
+  transition: all 0.4s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(183, 110, 121, 0.45);
+  box-shadow: 0 20px 45px rgba(183, 110, 121, 0.15);
+}
+
+/* Typography elements */
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-dark);
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 35px;
+  font-weight: 400;
+}
+
+.btn-premium {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-rose-gold) 0%, #ff859f 100%);
+  border: none;
+  padding: 16px 36px;
+  border-radius: 45px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(183, 110, 121, 0.35);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-premium:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(183, 110, 121, 0.5);
+}
+
+.btn-premium:disabled {
+  background: rgba(110, 85, 87, 0.25);
+  color: rgba(44, 22, 24, 0.4);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.pulse-btn {
+  animation: pulseButton 2s infinite;
+}
+
+/* Custom Checkbox Design */
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--text-dark);
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  border: 1.5px solid var(--color-rose-gold);
+  border-radius: 4px;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--color-rose-gold);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .checkbox-text {
+  color: rgba(44, 22, 24, 0.45);
+  text-decoration: line-through;
+}
+
+/* ==========================================================================
+   2. Welcome Screen
+   ========================================================================== */
+.welcome-text-wrapper {
+  max-width: 650px;
+  margin: 0 auto 50px auto;
+  min-height: 220px;
+}
+
+.welcome-line {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--color-pink-blush);
+  text-shadow: 0 0 20px rgba(255, 164, 182, 0.25);
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.welcome-line.tagline {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--text-light);
+  line-height: 1.8;
+}
+
+.welcome-line.warning {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-pink-rose);
+}
+
+.welcome-line.hidden {
+  opacity: 0;
+}
+
+.welcome-actions {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.welcome-actions.hidden {
+  opacity: 0;
+}
+
+/* ==========================================================================
+   3. Contract Screen
+   ========================================================================== */
+.contract-panel {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.contract-terms-box {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px dashed rgba(183, 110, 121, 0.25);
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  margin-bottom: 30px;
+}
+
+.contract-terms-box::-webkit-scrollbar {
+  width: 5px;
+}
+
+.contract-terms-box::-webkit-scrollbar-thumb {
+  background: var(--color-rose-gold);
+  border-radius: 3px;
+}
+
+.terms-list {
+  list-style: none;
+}
+
+.contract-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   4. Identity Verification (Quiz)
+   ========================================================================== */
+.quiz-panel {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.quiz-question {
+  animation: fadeInQuestion 0.5s ease;
+}
+
+.quiz-question.hidden {
+  display: none !important;
+}
+
+.question-text {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.btn-option {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--glass-border);
+  padding: 16px 20px;
+  border-radius: 16px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s;
+}
+
+.btn-option:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--color-rose-gold);
+  padding-left: 25px;
+}
+
+.btn-option.correct-choice {
+  background: rgba(144, 238, 144, 0.4) !important;
+  border-color: #2e7d32;
+  box-shadow: 0 0 10px rgba(46, 125, 50, 0.2);
+}
+
+.btn-option.wrong-choice {
+  background: rgba(255, 182, 193, 0.4) !important;
+  border-color: #c62828;
+}
+
+.quiz-feedback-box {
+  margin-top: 25px;
+  animation: scaleUpReveal 0.4s ease;
+}
+
+.quiz-feedback-box.hidden {
+  display: none !important;
+}
+
+.feedback-text {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-dark);
+}
+
+.btn-link {
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-rose-gold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   5. Sibling direction Pop-up Modal
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(24, 13, 17, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-overlay.hidden {
+  display: none !important;
+}
+
+.modal-content {
+  max-width: 480px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.direction-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+}
+
+.direction-reveal {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-rose-gold);
+  margin-bottom: 25px;
+  animation: scaleBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.3);
+}
+
+/* ==========================================================================
+   6. Nickname Vault Screen
+   ========================================================================== */
+.vault-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.vault-tokens-area {
+  padding: 20px;
+}
+
+.tokens-container {
+  height: 400px;
+  position: relative;
+  margin-top: 30px;
+  border-radius: 20px;
+  border: 1px dashed rgba(183, 110, 121, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.floating-token {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid var(--color-pink-rose);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(183, 110, 121, 0.15);
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.floating-token:hover {
+  transform: scale(1.1) translateY(-5px) !important;
+  border-color: var(--color-gold-metallic);
+  box-shadow: 0 15px 35px rgba(197, 155, 76, 0.25);
+  z-index: 10;
+}
+
+.token-icon {
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.token-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  letter-spacing: 0.5px;
+}
+
+/* Scrapbook fragments sidebar */
+.scrapbook-collection {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrapbook-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.fragments-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.fragment-slot {
+  height: 140px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px dashed var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.fragment-slot.empty {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: rgba(110, 85, 87, 0.35);
+}
+
+.fragment-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vault-milestone-msg {
+  text-align: center;
+  margin-top: auto;
+  animation: scaleUpReveal 0.5s ease;
+}
+
+.vault-milestone-msg.hidden {
+  display: none !important;
+}
+
+.glowing-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.memory-paragraph {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+  margin: 15px 0 25px 0;
+  font-style: italic;
+}
+
+.memory-meta {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.meta-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-rose-gold);
+  border: 1px solid var(--color-rose-gold);
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   7. Who is Mitali (The Investigation)
+   ========================================================================== */
+.investigation-panel {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.investigation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+  position: relative;
+  z-index: 5;
+}
+
+.btn-title-option {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1.5px solid var(--glass-border);
+  padding: 18px 20px;
+  border-radius: 16px;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-title-option:hover:not(.stamped) {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: var(--color-rose-gold);
+}
+
+.btn-title-option.stamped {
+  opacity: 0.4;
+  cursor: not-allowed;
+  position: relative;
+}
+
+/* Stamps layout overlay */
+.stamp-label {
+  position: absolute;
+  color: #c62828;
+  border: 3px double #c62828;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 10;
+  transform: rotate(-15deg) scale(3);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.4), opacity 0.25s;
+}
+
+.stamp-label.active {
+  opacity: 0.85;
+  transform: rotate(-15deg) scale(1);
+}
+
+.investigation-climax {
+  margin-top: 35px;
+  text-align: center;
+  animation: scaleUpReveal 0.6s ease;
+}
+
+.investigation-climax.hidden {
+  display: none !important;
+}
+
+.climax-alert {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #c62828;
+  margin-bottom: 8px;
+}
+
+.climax-hint {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+}
+
+/* ==========================================================================
+   8. Orbit Section
+   ========================================================================== */
+.orbit-visuals {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 30px auto;
+}
+
+canvas#orbit-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.orbit-center-star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.8rem;
+  filter: drop-shadow(0 0 10px var(--color-pink-blush));
+  animation: slowPulse 2s infinite alternate;
+}
+
+.orbit-narrative {
+  min-height: 160px;
+  margin-bottom: 40px;
+}
+
+.orbit-line {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--color-pink-blush);
+  text-shadow: 0 0 15px rgba(255, 164, 182, 0.2);
+  transition: opacity 0.8s ease;
+}
+
+.orbit-line.highlight-word {
+  font-size: 2.8rem;
+  color: var(--color-pink-rose);
+}
+
+.orbit-line.hidden {
+  opacity: 0;
+}
+
+.orbit-actions {
+  transition: opacity 0.8s ease;
+}
+
+.orbit-actions.hidden {
+  opacity: 0;
+}
+
+/* ==========================================================================
+   9. Birthday Decree Scroll
+   ========================================================================== */
+.decree-scroll {
+  background: #f5edd6;
+  background-image: radial-gradient(circle, #f9f4e5 0%, #eedeb5 100%);
+  color: #2c1a04;
+  border: 1px solid #dcd1ad;
+  border-radius: 8px;
+  padding: 40px;
+  max-width: 620px;
+  margin: 0 auto;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.25),
+    inset 0 0 40px rgba(139, 94, 26, 0.15);
+  border-top: 15px solid #8b5a2b;
+  border-bottom: 15px solid #8b5a2b;
+}
+
+.decree-border {
+  border: 2px double #8b5a2b;
+  border-radius: 4px;
+  padding: 30px 25px;
+}
+
+.decree-org {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #5d3a1a;
+  font-weight: 700;
+}
+
+.decree-divider {
+  color: #8b5a2b;
+  font-size: 0.9rem;
+  margin: 6px 0;
+}
+
+.decree-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4a2d11;
+  letter-spacing: 1px;
+}
+
+.decree-subtitle {
+  font-size: 0.9rem;
+  color: #724c2d;
+  margin-bottom: 25px;
+}
+
+.decree-orders-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.decree-order-item {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  border: 1px dashed rgba(139, 90, 43, 0.2);
+}
+
+.decree-order-item .checkbox-container {
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+
+.decree-order-item .checkmark {
+  border-color: #8b5a2b;
+}
+
+.decree-order-item .checkbox-container input:checked ~ .checkmark {
+  background-color: #8b5a2b;
+}
+
+.decree-warning {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #724c2d;
+  border-left: 2px solid rgba(139, 90, 43, 0.3);
+  padding-left: 10px;
+  margin-bottom: 30px;
+}
+
+/* ==========================================================================
+   10. Contract Renewal & Wax Seal
+   ========================================================================== */
+.renewal-panel {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.renewal-checkboxes {
+  max-width: 460px;
+  margin: 0 auto 30px auto;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px dashed var(--glass-border);
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.seal-container {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* Wax Seal dropdown */
+.wax-seal {
+  width: 80px;
+  height: 80px;
+  background: #a8201a;
+  background-image: radial-gradient(circle at 35% 35%, #ca2e27 0%, #7d1511 100%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 10px 20px rgba(0,0,0,0.3),
+    inset 0 -2px 5px rgba(0,0,0,0.4),
+    inset 0 2px 5px rgba(255,255,255,0.4);
+  animation: dropSealThud 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+  position: relative;
+}
+
+.wax-seal-inner {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+
+.wax-seal .seal-logo {
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.seal-validity {
+  position: absolute;
+  bottom: -35px;
+  width: 200px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.wax-seal.hidden, .renewal-actions.hidden {
+  display: none !important;
+}
+
+.renewal-actions {
+  animation: scaleUpReveal 0.5s ease;
+}
+
+/* ==========================================================================
+   11. Climax Envelope & Cursive Letter
+   ========================================================================== */
+.letter-envelope-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.letter-envelope {
+  background: #fffdf9;
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(183, 110, 121, 0.2);
+  position: relative;
+}
+
+.letter-envelope::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--color-rose-gold) 0%, var(--color-pink-rose) 50%, var(--color-rose-gold) 100%);
+  border-radius: 16px 16px 0 0;
+}
+
+.letter-paper {
+  background-color: #fffefb;
+  border: 1px dashed rgba(183, 110, 121, 0.2);
+  border-radius: 12px;
+  padding: 50px 40px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+.final-scroll-text {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #382729;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.final-scroll-text p {
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.final-scroll-text p.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.final-scroll-text strong {
+  font-weight: 700;
+  color: var(--color-rose-gold);
+}
+
+.final-scroll-text h2 {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-rose-gold);
+  text-align: center;
+  margin: 30px 0;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.final-scroll-text h2.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.final-scroll-text .signatures {
+  text-align: right;
+  margin-top: 35px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.final-scroll-text .signatures .name {
+  font-family: var(--font-script);
+  font-size: 3.8rem;
+  color: var(--color-rose-gold);
+  line-height: 1.1;
+  margin: 5px 0;
+}
+
+.final-actions-row {
+  text-align: center;
+  margin-top: 40px;
+  animation: scaleUpReveal 0.5s ease;
+}
+
+.final-actions-row.hidden {
+  display: none !important;
+}
+
+.btn-text {
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.btn-text:hover {
+  color: var(--color-rose-gold);
+}
+
+/* ==========================================================================
+   12. Sibling Teasing Elements (Sassy clicks & Toast)
+   ========================================================================== */
+.tease-toast-panel {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(255, 243, 245, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--color-pink-rose);
+  padding: 15px 30px;
+  border-radius: 35px;
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(183, 110, 121, 0.2);
+  z-index: 99999;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tease-toast-panel.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.annoying-floater {
+  position: absolute;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.85rem;
+  pointer-events: none;
+  z-index: 9999;
+  animation: floatUpAndOut 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  background: rgba(24, 13, 17, 0.88);
+  padding: 6px 12px;
+  border-radius: 15px;
+  border: 1.5px solid var(--color-pink-rose);
+  color: var(--color-pink-blush);
+  white-space: nowrap;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.fleeing-btn {
+  position: fixed !important;
+  z-index: 9999;
+  transition: top 0.12s ease, left 0.12s ease;
+}
+
+/* Audio Player */
+#audio-control {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1000;
+}
+
+#audio-control.hidden {
+  display: none !important;
+}
+
+#audio-toggle {
+  background: rgba(255, 243, 245, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-dark);
+  padding: 10px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 5px 15px rgba(183, 110, 121, 0.12);
+}
+
+#audio-toggle.muted {
+  opacity: 0.6;
+}
+
+/* Confetti Canvas */
+canvas#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+/* Screen shake for decree and thuds */
+.stamp-shake {
+  animation: stampShakeAnim 0.35s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* ==========================================================================
+   13. Keyframe Animations
+   ========================================================================== */
+@keyframes pulseButton {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes fadeInQuestion {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleUpReveal {
+  from { opacity: 0; transform: scale(0.96) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes scaleBounce {
+  0% { transform: scale(0.3); opacity: 0; }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes dropSealThud {
+  0% { transform: scale(3.5) translateY(-50px); opacity: 0; }
+  70% { transform: scale(0.9) translateY(0); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes floatUpAndOut {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  15% { opacity: 1; transform: translateY(-5px) scale(1); }
+  100% { transform: translateY(-70px) scale(0.9); opacity: 0; }
+}
+
+@keyframes stampShakeAnim {
+  10%, 90% { transform: translate3d(-1px, 2px, 0) rotate(0.4deg); }
+  20%, 80% { transform: translate3d(2px, -2px, 0) rotate(-0.4deg); }
+  30%, 50%, 70% { transform: translate3d(-3px, 3px, 0) rotate(0.8deg); }
+  40%, 60% { transform: translate3d(3px, -3px, 0) rotate(-0.8deg); }
+}
+
+@keyframes slowPulse {
+  from { opacity: 0.85; filter: drop-shadow(0 0 8px rgba(255, 213, 221, 0.45)); }
+  to { opacity: 1; filter: drop-shadow(0 0 20px rgba(255, 213, 221, 0.75)); }
+}
+
+/* ==========================================================================
+   14. Responsive Layouts
+   ========================================================================== */
+@media(max-width: 992px) {
+  .vault-layout { grid-template-columns: 1fr; gap: 30px; }
+  .scrapbook-collection { min-height: 250px; }
+}
+
+@media(max-width: 576px) {
+  .section-title { font-size: 2.1rem; }
+  .welcome-line { font-size: 2.4rem; }
+  .welcome-line.tagline { font-size: 1.15rem; }
+  .contract-panel, .quiz-panel, .renewal-panel, .decree-scroll { padding: 25px 15px; }
+  .letter-paper { padding: 30px 20px; }
+  .handwritten-signature { font-size: 3rem; }
+  .final-scroll-text { font-size: 1.05rem; }
+}
+
+/* ==========================================================================
+   15. Ultra-Silly Hijacking Custom Styles
+   ========================================================================== */
+.btn-title-option.gravity-fall {
+  pointer-events: none;
+  position: relative;
+  z-index: 100;
+  animation: cardTumbleFall 1.2s forwards cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+@keyframes cardTumbleFall {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  15% {
+    transform: translate(0, -15px) rotate(var(--random-tilt, -6deg));
+  }
+  100% {
+    transform: translate(var(--random-x, -40px), 120vh) rotate(var(--random-rot, 45deg));
+    opacity: 0;
+  }
+}
+
+.falling-emoji-particle {
+  position: fixed;
+  pointer-events: none;
+  font-size: 2.2rem;
+  z-index: 99999;
+  user-select: none;
+  transform-origin: center;
+  transition: transform 0.05s linear;
+}
+
+.orbit-dashboard {
+  max-width: 450px;
+  margin: 0 auto 30px auto;
+  padding: 24px;
+  text-align: center;
+}
+
+.dashboard-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.btn-dashboard {
+  padding: 12px 24px !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 1px !important;
+}
+
+.btn-dashboard.btn-secondary {
+  background: rgba(110, 85, 87, 0.15) !important;
+  color: var(--text-dark) !important;
+  border: 1.5px solid var(--color-rose-gold) !important;
+  box-shadow: none !important;
+}
+
+.btn-dashboard.btn-secondary:hover {
+  background: rgba(110, 85, 87, 0.25) !important;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.orbit-status-log {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-rose-gold);
+  margin-top: 12px;
+}
+
+/* ==========================================================================
+   16. Mitali is Watching Notification
+   ========================================================================== */
+.mitali-watching-notif {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 999999;
+  background: rgba(24, 13, 17, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid var(--color-rose-gold);
+  border-radius: 18px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 240px;
+  max-width: 320px;
+  box-shadow: 0 8px 30px rgba(183, 110, 121, 0.35);
+  transform: translateX(120%);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+  opacity: 0;
+}
+
+.mitali-watching-notif.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.mitali-watching-notif.hidden {
+  display: none !important;
+}
+
+.watching-avatar {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  animation: watchingPulse 2s ease infinite;
+}
+
+.watching-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.watching-name {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-rose-gold);
+}
+
+.watching-msg {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-pink-blush);
+  line-height: 1.35;
+}
+
+@keyframes watchingPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.12); opacity: 0.8; }
+}
+
+/* ==========================================================================
+   17. Things Mitali Says - Flip Card Section
+   ========================================================================== */
+.says-title {
+  color: var(--color-pink-blush) !important;
+}
+
+.says-tagline {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(255, 213, 221, 0.65);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.says-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+  perspective: 1000px;
+}
+
+.says-card {
+  height: 160px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.says-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+.says-card.flipped .says-inner {
+  transform: rotateY(180deg);
+}
+
+.says-front,
+.says-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.says-front {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 8px 24px rgba(44, 26, 29, 0.12);
+}
+
+.says-back {
+  background: linear-gradient(135deg, rgba(183, 110, 121, 0.35) 0%, rgba(255, 164, 182, 0.2) 100%);
+  border: 1.5px solid rgba(183, 110, 121, 0.45);
+  transform: rotateY(180deg);
+  box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
+}
+
+.says-quote {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+.says-card:hover:not(.flipped) .says-front {
+  border-color: var(--color-rose-gold);
+  box-shadow: 0 12px 28px rgba(183, 110, 121, 0.22);
+}
+
+.says-meaning-label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-rose-gold);
+  margin-bottom: 8px;
+}
+
+.says-meaning {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+.says-footer {
+  text-align: center;
+  animation: scaleUpReveal 0.6s ease;
+}
+
+.says-footer.hidden {
+  display: none !important;
+}
+
+.says-conclusion {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--color-pink-blush);
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .says-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .says-grid { grid-template-columns: 1fr; }
+  .says-card { height: 130px; }
+}
